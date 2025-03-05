@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      # Ici, nous pourrons ajouter d'autres routes API si nécessaire
+      get '/member-data', to: 'members#show'
     end
   end
 
