@@ -17,6 +17,9 @@ gem 'rswag'
 gem 'rswag-api'
 gem 'rswag-ui'
 
+# Serializer
+gem 'jsonapi-serializer'
+
 # Security
 gem 'dotenv-rails'
 
