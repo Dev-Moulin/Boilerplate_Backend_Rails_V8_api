@@ -4,10 +4,17 @@ class Api::V1::SessionsController < Devise::SessionsController
   private
 
   def respond_with(resource, _opts = {})
-    render json: {
-      status: { code: 200, message: 'Connecté avec succès.' },
-      data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
-    }
+    if resource.persisted?
+      render json: {
+        status: { code: 200, message: 'Connecté avec succès.' },
+        data: UserSerializer.new(resource).serializable_hash[:data][:attributes],
+        token: request.env['warden-jwt_auth.token']
+      }
+    else
+      render json: {
+        status: { code: 401, message: "Email ou mot de passe incorrect." }
+      }, status: :unauthorized
+    end
   end
 
   def respond_to_on_destroy

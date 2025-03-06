@@ -1,14 +1,21 @@
 Rails.application.routes.draw do
   devise_for :users,
+             defaults: { format: :json },
+             path: '',
+             path_names: {
+               sign_in: 'login',
+               sign_out: 'logout',
+               registration: 'signup'
+             },
              controllers: {
                sessions: 'api/v1/sessions',
                registrations: 'api/v1/registrations'
-             },
-             defaults: { format: :json }
+             }
 
   namespace :api do
     namespace :v1 do
       get '/member-data', to: 'members#show'
+      post '/signup', to: 'registrations#create'
     end
   end
 
